@@ -1,10 +1,6 @@
-# A Blank PhoneGap App
+# Juego demostracion de las capacidades del acelerometro
 
 ## Usage
-
-### PhoneGap CLI
-
-    $ phonegap create my-app --template blank
 
 ### Desktop
 
