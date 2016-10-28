@@ -2,6 +2,10 @@ body{
   background-color: #fdcf58;
 }
 
+body.agitado{
+  background-color: #800909;
+}
+
 div.lectura{
   display: block;
   background-color: #f27d0c;
