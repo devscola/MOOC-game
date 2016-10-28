@@ -4,6 +4,7 @@ var app={
 
     velocidadX=0;
     velocidadY=0;
+    puntuacion=0;
     
     alto  = document.documentElement.clientHeight;
     ancho = document.documentElement.clientWidth;
@@ -22,8 +23,12 @@ var app={
     }
 
     function create() {
+      scoreText = game.add.text(16, 16, puntuacion, { fontSize: '100px', fill: '#757676' });
       bola = game.add.sprite(app.inicioX(), app.inicioY(), 'bola');
       game.physics.arcade.enable(bola);
+      bola.body.collideWorldBounds = true;
+      bola.body.onWorldBounds = new Phaser.Signal();
+      bola.body.onWorldBounds.add(app.decrementaPuntuacion, this);
     }
 
     function update(){
@@ -34,6 +39,11 @@ var app={
 
     var estados = { preload: preload, create: create, update: update };
     var game = new Phaser.Game(ancho, alto, Phaser.CANVAS, 'phaser',estados);
+  },
+
+  decrementaPuntuacion: function(){
+    puntuacion = puntuacion-1;
+    scoreText.text = puntuacion;
   },
 
   inicioX: function(){
@@ -61,7 +71,6 @@ var app={
 
     navigator.accelerometer.watchAcceleration(onSuccess, onError,{ frequency: 10 });
   },
-
 
   detectaAgitacion: function(datosAceleracion){
     var agitacionX = datosAceleracion.x > 10;
