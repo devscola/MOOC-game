@@ -1,10 +1,10 @@
 var app={
   inicio: function(){
     DIAMETRO_BOLA = 50;
-
-    velocidadX=0;
-    velocidadY=0;
-    puntuacion=0;
+    dificultad = 0;
+    velocidadX = 0;
+    velocidadY = 0;
+    puntuacion = 0;
     
     alto  = document.documentElement.clientHeight;
     ancho = document.documentElement.clientWidth;
@@ -38,8 +38,9 @@ var app={
     }
 
     function update(){
-      bola.body.velocity.y = (velocidadY * 300);
-      bola.body.velocity.x = (velocidadX * -300);
+      var factorDificultad = (300 + (dificultad * 100));
+      bola.body.velocity.y = (velocidadY * factorDificultad);
+      bola.body.velocity.x = (velocidadX * (-1 * factorDificultad));
       
       game.physics.arcade.overlap(bola, objetivo, app.incrementaPuntuacion, null, this);
     }
@@ -56,6 +57,13 @@ var app={
   incrementaPuntuacion: function(){
     puntuacion = puntuacion+1;
     scoreText.text = puntuacion;
+
+    objetivo.body.x = app.inicioX();
+    objetivo.body.y = app.inicioY();
+
+    if (puntuacion > 0){
+      dificultad = dificultad + 1;
+    }
   },
 
   inicioX: function(){
